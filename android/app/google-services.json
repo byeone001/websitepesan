@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1031435001445",
+    "project_id": "catatan-uang-5fc64",
+    "storage_bucket": "catatan-uang-5fc64.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031435001445:android:92e5e4499c89ce6151708c",
+        "android_client_info": {
+          "package_name": "com.example.catatanuang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSpzYkr4_weJntEnmH3af89Jcm1NhfFv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031435001445:android:d808c422cedddac651708c",
+        "android_client_info": {
+          "package_name": "com.example.cobacoba"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSpzYkr4_weJntEnmH3af89Jcm1NhfFv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

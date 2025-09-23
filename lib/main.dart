@@ -1,0 +1,228 @@
+import 'package:websitepesan/halaman_beranda.dart';
+import 'package:websitepesan/halaman_login.dart';
+import 'package:websitepesan/halaman_password.dart';
+import 'package:websitepesan/halaman_registrasi.dart';
+import 'package:websitepesan/loading.dart';
+import 'package:flutter/material.dart';
+
+void main() async {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Warung Kita',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const Loading(),
+      //home: const Beranda(),
+      initialRoute: "/login",
+      routes: {
+        "/login": (context) => const HalamanLogin(),
+        "/register": (context) => const HalamanRegistrasi(),
+        "/forgot": (context) => const HalamanLupaPassword(),
+        "/home": (context) => const HalamanBeranda(email: '',),
+      },
+    );
+  }
+}
+
+// Simulasi database lokal
+Map<String, String> fakeDatabase = {};
+
+// ======================================================
+// ANIMATED ROUTE (CUSTOM SLIDE TRANSITION)
+// ======================================================
+Route animatedRoute(Widget page, {AxisDirection direction = AxisDirection.right}) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const curve = Curves.easeInOut;
+      var tween = Tween<Offset>(
+        begin: _getBeginOffset(direction),
+        end: Offset.zero,
+      ).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+    transitionDuration: const Duration(milliseconds: 500),
+  );
+}
+
+Offset _getBeginOffset(AxisDirection direction) {
+  switch (direction) {
+    case AxisDirection.up:
+      return const Offset(0, 1);
+    case AxisDirection.down:
+      return const Offset(0, -1);
+    case AxisDirection.left:
+      return const Offset(1, 0);
+    case AxisDirection.right:
+      return const Offset(-1, 0);
+  }
+}
+
+// ======================================================
+// AUTH SCAFFOLD (RESPONSIVE LAYOUT)
+// ======================================================
+class AuthScaffold extends StatelessWidget {
+  final String title;
+  final Widget fields;
+  //final String mainButtonText;
+  //final VoidCallback onMainButtonPressed;
+  final String bottomText;
+  final String bottomButtonText;
+  final VoidCallback onBottomButtonPressed;
+
+  const AuthScaffold({
+    super.key,
+    required this.title,
+    required this.fields,
+    //required this.mainButtonText,
+    //required this.onMainButtonPressed,
+    required this.bottomText,
+    required this.bottomButtonText,
+    required this.onBottomButtonPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration( // Background image
+          image: DecorationImage(
+            image: AssetImage('assets/buri.jpeg'), // Replace with your background image
+            fit: BoxFit.cover,
+          ),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            bool isWide = constraints.maxWidth > 700;
+
+            return Center(
+              child: Container(
+                width: isWide ? 800 : double.infinity,
+                height: isWide ? 500 : double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  boxShadow: isWide
+                      ? [
+                          const BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 10,
+                          ),
+                        ]
+                      : null,
+                  borderRadius: isWide ? BorderRadius.circular(15) : BorderRadius.zero,
+                ),
+                child: isWide
+                    ? Row(
+                        children: [
+                          _buildFormSection(context),
+                          _buildBlueSection(),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Expanded(child: _buildFormSection(context)),
+                          _buildBlueSection(),
+                        ],
+                      ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFormSection(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              fields,
+              const SizedBox(height: 20),
+              /*SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                  //onPressed: onMainButtonPressed,
+                  //child: Text(mainButtonText),
+                ),
+              ),*/
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(bottomText),
+                  TextButton(
+                    onPressed: onBottomButtonPressed,
+                    child: Text(bottomButtonText),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBlueSection() {
+    return Expanded(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue, Colors.blueAccent],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/unesa logo.png',
+                height: 80,
+                width: 80,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "WELCOME!\nStart your journey with us",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
