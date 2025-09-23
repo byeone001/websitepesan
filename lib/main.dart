@@ -4,6 +4,7 @@ import 'package:websitepesan/halaman_password.dart';
 import 'package:websitepesan/halaman_registrasi.dart';
 import 'package:websitepesan/loading.dart';
 import 'package:flutter/material.dart';
+//import 'package:websitepesan/loadingnew.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Warung Kita',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const Loading(),
+      //home: const LoadingNew(),
       //home: const Beranda(),
       initialRoute: "/login",
       routes: {
