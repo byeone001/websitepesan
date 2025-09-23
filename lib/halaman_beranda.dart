@@ -61,82 +61,33 @@ class _HalamanBerandaState extends State<HalamanBeranda> {
 
   @override
   Widget build(BuildContext context) {
+  final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final email = args?["email"] ?? widget.email;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'MENU GACOAN',
-          style: TextStyle(
+        title: Text(
+          'MENU GACOAN, $email',
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.orange,
         elevation: 0,
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: _bukaHalamanKeranjang,
-                tooltip: 'Keranjang Belanja',
-              ),
-              if (_keranjang.totalItem > 0)
-                Positioned(
-                  right: 8,
-                  top: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 16,
-                      minHeight: 16,
-                    ),
-                    child: Text(
-                      _keranjang.totalItem.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _logout,
-            tooltip: 'Keluar',
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Info pengguna dan ringkasan keranjang
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.orange.shade50,
-            child: Row(
-              children: [
-                const Icon(Icons.person, size: 16),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    widget.email,
-                    style: const TextStyle(fontSize: 14),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                GestureDetector(
+            GestureDetector(
                   onTap: _bukaHalamanKeranjang,
                   child: Row(
                     children: [
                       Stack(
                         children: [
-                          const Icon(Icons.shopping_cart, size: 24),
+                          //const Icon(Icons.shopping_cart, size: 24),
+                          IconButton(
+                            icon: const Icon(Icons.shopping_cart),
+                            onPressed: _bukaHalamanKeranjang,
+                            tooltip: 'Keranjang Belanja',
+                          ),
                           if (_keranjang.totalItem > 0)
                             Positioned(
                               right: 0,
@@ -163,17 +114,42 @@ class _HalamanBerandaState extends State<HalamanBeranda> {
                             ),
                         ],
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 5),
                       Text(
                         'Rp${_keranjang.totalHarga.toStringAsFixed(0)}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.orange,
+                          color: Colors.white,
                         ),
                       ),
                     ],
                   ),
                 ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: _logout,
+            tooltip: 'Keluar',
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // Info pengguna dan ringkasan keranjang
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.orange.shade50,
+            child: Row(
+              children: [
+                const Icon(Icons.person, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    widget.email,
+                    style: const TextStyle(fontSize: 14),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 16),
               ],
             ),
           ),
