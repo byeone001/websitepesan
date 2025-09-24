@@ -29,30 +29,3 @@ class Makanan extends Produk {
     return "$nama ($infoPedas) - Rp${harga.toStringAsFixed(0)}";
   }
 }
-/*import 'package:cobacoba/model/produk.dart';
-
-class Makanan extends Produk {
-  Makanan({
-    required String nama,
-    required double harga,
-    required String gambar,
-  }) : super(nama: nama, kategori: "Makanan", harga: harga, gambar: gambar);
-
-  @override
-  String deskripsi() {
-    return "Makanan spesial: $nama, Harga: Rp $harga";
-  }
-}
-
-class Minuman extends Produk {
-  Minuman({
-    required String nama,
-    required double harga,
-    required String gambar,
-  }) : super(nama: nama, kategori: "Minuman", harga: harga, gambar: gambar);
-
-  @override
-  String deskripsi() {
-    return "Minuman segar: $nama, Harga: Rp $harga";
-  }
-}*/

@@ -31,7 +31,7 @@ class HalamanBeranda extends StatelessWidget {
               Icon(Icons.local_offer, color: Colors.orange),
               SizedBox(width: 8),
               Text(
-                'Gratis ongkir untuk pesanan di atas Rp 50.000',
+                'Diskon Rp 10.000 untuk pesanan di atas Rp 50.000',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),

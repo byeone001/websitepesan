@@ -17,23 +17,17 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   final Keranjang _keranjang = Keranjang();
 
-  late final List<Widget> _pages;
-  final List<String> _judulAppBar = const [
-    'Menu Gacoan',
-    'Keranjang Belanja',
-    'Profil Pengguna',
-    'Pengaturan'
-  ];
+  late final List<String> _judulAppBar;
 
   @override
   void initState() {
     super.initState();
-    _pages = [
-      HalamanBeranda(keranjang: _keranjang, email: widget.email, onAddToCart: _addToCart),
-      HalamanKeranjang(keranjang: _keranjang, email: widget.email),
-      HalamanProfil(email: widget.email),
-      HalamanPengaturan(email: widget.email),
-      //HalamanRiwayat(), // Tambahkan halaman riwayat di sini
+    _judulAppBar = [
+      'Selamat Datang, ${widget.email}',
+      'Keranjang Belanja',
+      'Profil Pengguna',
+      'Pengaturan'
+      'Riwayat Transaksi'
     ];
   }
 
@@ -198,8 +192,13 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Update pages list to pass the callback
-    _pages[0] = HalamanBeranda(keranjang: _keranjang, email: widget.email, onAddToCart: _addToCart);
+    // Definisikan halaman di sini agar selalu mendapatkan data terbaru
+    final List<Widget> pages = [
+      HalamanBeranda(keranjang: _keranjang, email: widget.email, onAddToCart: _addToCart),
+      HalamanKeranjang(keranjang: _keranjang, email: widget.email),
+      HalamanProfil(email: widget.email),
+      HalamanPengaturan(email: widget.email),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -210,7 +209,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: IndexedStack(
         index: _selectedIndex,
-        children: _pages,
+        children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

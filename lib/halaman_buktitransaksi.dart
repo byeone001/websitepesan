@@ -60,7 +60,7 @@ class HalamanBuktiTransaksi extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Terima kasih telah berbelanja di GACOAN',
+                    'Terima kasih telah berbelanja di Warung Kita',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey.shade700,
@@ -234,7 +234,7 @@ class HalamanBuktiTransaksi extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Pesanan Anda sedang diproses. Estimasi pengiriman 30-45 menit.',
+                    'Pesanan Anda sedang diproses. Silahkan tunggu beberapa menit.',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey.shade600,
@@ -350,7 +350,7 @@ class HalamanBuktiTransaksi extends StatelessWidget {
             ),
           ),
           Text(
-            value == 0 ? 'GRATIS' : 'Rp${value.toStringAsFixed(0)}',
+            value == 0 ? 'Diskon' : 'Rp${value.toStringAsFixed(0)}',
             style: TextStyle(
               fontSize: isTotal ? 18 : 14,
               color: isTotal ? Colors.orange : Colors.black,

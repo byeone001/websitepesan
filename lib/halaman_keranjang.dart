@@ -143,7 +143,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Checkout'),
+          title: const Text('Bayar Sekarang'),
           content: Text(
             'Total: Rp${widget.keranjang.totalHarga.toStringAsFixed(0)}\n\nApakah Anda yakin ingin melanjutkan ke pembayaran?',
             style: const TextStyle(fontSize: 16),
@@ -165,7 +165,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                 );
 
                 // Generate ID transaksi unik
-                final idTransaksi = 'GCO${DateTime.now().millisecondsSinceEpoch}';
+                final idTransaksi = 'WRKT${DateTime.now().millisecondsSinceEpoch}';
                 final waktuTransaksi = DateTime.now();
 
                 // Create Transaksi object
@@ -401,7 +401,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                   children: [
                     const Text('Ongkos Kirim', style: TextStyle(fontSize: 16)),
                     Text(
-                      widget.keranjang.totalHarga >= 50000 ? 'GRATIS' : 'Rp10.000',
+                      widget.keranjang.totalHarga >= 50000 ? 'DISKON' : 'Rp10.000',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -441,7 +441,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                       ),
                     ),
                     child: const Text(
-                      'CHECKOUT',
+                      'Bayar sekarang',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

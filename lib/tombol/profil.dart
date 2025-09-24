@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:websitepesan/providers/transaction_provider.dart';
 
 class HalamanProfil extends StatelessWidget {
   final String email;
@@ -17,7 +19,7 @@ class HalamanProfil extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'MENU GACOAN, $email',
+                  'Halo, $email',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -29,24 +31,14 @@ class HalamanProfil extends StatelessWidget {
                   children: [
                     FloatingActionButton.extended(
                       onPressed: () {},
-                      heroTag: 'follow',
                       elevation: 0,
-                      label: const Text("Ikuti"),
+                      label: const Text("Kamu Sudah Melakukan Transaksi"),
                       icon: const Icon(Icons.person_add_alt_1),
-                    ),
-                    const SizedBox(width: 16.0),
-                    FloatingActionButton.extended(
-                      onPressed: () {},
-                      heroTag: 'message',
-                      elevation: 0,
-                      backgroundColor: Colors.red,
-                      label: const Text("Pesan"),
-                      icon: const Icon(Icons.message_rounded),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                const _BarisInfoProfil(), //
+                _BarisInfoProfil(email: email), //
               ],
             ),
           ),
@@ -57,32 +49,38 @@ class HalamanProfil extends StatelessWidget {
 }
 
 class _BarisInfoProfil extends StatelessWidget {
-  const _BarisInfoProfil();
-
-  final List<ItemInfoProfil> _items = const [
-    ItemInfoProfil("Jumlah Transaksi", 1),
-  ];
+  final String email;
+  const _BarisInfoProfil({required this.email});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      constraints: const BoxConstraints(maxWidth: 400),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _items
-            .map(
-              (item) => Expanded(
-                child: Row(
-                  children: [
-                    if (_items.indexOf(item) != 0) const VerticalDivider(),
-                    Expanded(child: _itemTunggal(context, item)),
-                  ],
-                ),
-              ),
-            )
-            .toList(),
-      ),
+    return Consumer<TransactionProvider>(
+      builder: (context, transactionProvider, child) {
+        final transactionCount = transactionProvider.transactionsForUser(email).length;
+        final List<ItemInfoProfil> _items = [
+          ItemInfoProfil("Jumlah Transaksi", transactionCount),
+        ];
+
+        return Container(
+          height: 80,
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _items
+                .map(
+                  (item) => Expanded(
+                    child: Row(
+                      children: [
+                        if (_items.indexOf(item) != 0) const VerticalDivider(),
+                        Expanded(child: _itemTunggal(context, item)),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      },
     );
   }
 
