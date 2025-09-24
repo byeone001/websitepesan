@@ -23,7 +23,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
     if (fakeDatabase.containsKey(email) && fakeDatabase[email] == password) {
       Navigator.pushReplacementNamed(
         context,
-        "/home",
+        "/main",
         arguments: {"email": email},
       );
     } else {

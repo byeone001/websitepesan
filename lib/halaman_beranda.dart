@@ -1,103 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:websitepesan/halaman_detailproduk.dart';
-import 'package:websitepesan/halaman_keranjang.dart';
 import 'package:websitepesan/model/dummydata.dart';
 import 'package:websitepesan/model/keranjang.dart';
 import 'package:websitepesan/model/produk.dart';
-import 'package:websitepesan/tombol/pengaturan.dart';
-import 'package:websitepesan/tombol/profil.dart';
 
-class HalamanBeranda extends StatefulWidget {
+class HalamanBeranda extends StatelessWidget {
+  final Keranjang keranjang;
   final String email;
-  const HalamanBeranda({super.key, required this.email});
+  final Function(Produk) onAddToCart;
+
+  const HalamanBeranda({
+    super.key,
+    required this.keranjang,
+    required this.email,
+    required this.onAddToCart,
+  });
 
   @override
-  State<HalamanBeranda> createState() => _HalamanBerandaState();
-}
+  Widget build(BuildContext context) {
+    List<Produk> produkList = DummyData.getProdukList();
 
-class _HalamanBerandaState extends State<HalamanBeranda> {
-  // Variabel untuk bottom navigation
-  int _indexTerpilih = 0;
-  
-  // Keranjang belanja (state utama)
-  final Keranjang _keranjang = Keranjang();
-  List<Produk> produkList = DummyData.getProdukList();
-
-  // Daftar halaman untuk bottom navigation
-  late List<Widget> _halamanList;
-  
-  // Daftar judul untuk AppBar dinamis
-  final List<String> _judulAppBar = [
-    'Menu Gacoan',
-    'Keranjang Belanja',
-    'Profil Pengguna',
-    'Pengaturan'
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    // Inisialisasi halaman-halaman
-    _halamanList = [
-      _buildKontenBeranda(),
-      HalamanKeranjang(keranjang: _keranjang, email : widget.email),
-      HalamanProfil(email: widget.email),
-      HalamanPengaturan(email: widget.email),
-    ];
-  }
-
-  // FUNGSI YANG DIPINDAHKAN DARI KELAS KERANJANG
-  void _showSnackBar(String message, Color color) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: color,
-        duration: const Duration(seconds: 1),
-      ),
-    );
-  }
-
-  void _kosongkanKeranjang() {
-    setState(() {
-      _keranjang.kosongkan();
-    });
-    _showSnackBar('Keranjang berhasil dikosongkan!', Colors.orange);
-  }
-
-  void _updateKeranjang() {
-    setState(() {
-      // Cukup refresh UI
-    });
-  }
-  // AKHIR FUNGSI PINDAHAN
-
-  void _logout() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Keluar'),
-          content: const Text('Apakah Anda yakin ingin keluar?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Batal'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-              child: const Text('Keluar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Widget untuk konten beranda asli
-  Widget _buildKontenBeranda() {
     return Column(
       children: [
         // Banner promo
@@ -196,10 +118,7 @@ class _HalamanBerandaState extends State<HalamanBeranda> {
                   trailing: IconButton(
                     icon: const Icon(Icons.add_shopping_cart),
                     onPressed: () {
-                      setState(() {
-                        _keranjang.tambahItem(produk);
-                        _showSnackBar('${produk.nama} ditambahkan ke keranjang!', Colors.green);
-                      });
+                      onAddToCart(produk);
                     },
                   ),
                   onTap: () async {
@@ -209,14 +128,11 @@ class _HalamanBerandaState extends State<HalamanBeranda> {
                         builder: (context) => HalamanDetail(
                           produk: produk,
                           onTambahKeKeranjang: () {
-                            setState(() {
-                              _keranjang.tambahItem(produk);
-                            });
+                            onAddToCart(produk);
                           },
                         ),
                       ),
                     );
-                    setState(() {}); // Refresh state setelah kembali dari detail
                   },
                 ),
               );
@@ -224,161 +140,6 @@ class _HalamanBerandaState extends State<HalamanBeranda> {
           ),
         ),
       ],
-    );
-  }
-
-  // Fungsi untuk membangun actions AppBar secara dinamis
-  List<Widget> _buildAppBarActions() {
-    switch (_indexTerpilih) {
-      case 0: // Halaman Beranda
-        return [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _indexTerpilih = 1; // Pindah ke tab keranjang
-              });
-            },
-            child: Row(
-              children: [
-                Stack(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.shopping_cart),
-                      onPressed: () {
-                         setState(() {
-                           _indexTerpilih = 1; // Pindah ke tab keranjang
-                         });
-                      },
-                      tooltip: 'Keranjang Belanja',
-                    ),
-                    if (_keranjang.totalItem > 0)
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
-                          child: Text(
-                            _keranjang.totalItem.toString(),
-                            style: const TextStyle(color: Colors.white, fontSize: 8),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-                const SizedBox(width: 2),
-                Text(
-                  'Rp${_keranjang.totalHarga.toStringAsFixed(0)}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 20),
-        ];
-      case 1: // Halaman Keranjang
-        return [
-          if (_keranjang.items.isNotEmpty)
-            IconButton(
-              icon: const Icon(Icons.delete_sweep),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Kosongkan Keranjang'),
-                      content: const Text('Yakin ingin mengosongkan seluruh keranjang?'),
-                      actions: [
-                        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Batal')), 
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            _kosongkanKeranjang();
-                          },
-                          child: const Text('Ya, Kosongkan'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              tooltip: 'Kosongkan Keranjang',
-            ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _updateKeranjang,
-            tooltip: 'Refresh Keranjang',
-          ),
-        ];
-      default: // Halaman lain (Profil, Pengaturan)
-        return [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _logout,
-            tooltip: 'Keluar',
-          ),
-        ];
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _judulAppBar[_indexTerpilih], // Judul dinamis
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.orange,
-        elevation: 0,
-        actions: _buildAppBarActions(), // Actions dinamis
-        automaticallyImplyLeading: false, // Menghilangkan tombol back otomatis
-      ),
-
-      // Bottom Navigation Bar (navigasi bawah)
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _indexTerpilih,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: const Color(0xff757575),
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            _indexTerpilih = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home_rounded),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart_rounded),
-            label: 'Keranjang',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
-            activeIcon: Icon(Icons.person_rounded),
-            label: 'Profil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            activeIcon: Icon(Icons.settings_rounded),
-            label: 'Pengaturan',
-          ),
-        ],
-      ),
-
-      // Body yang menampilkan halaman sesuai pilihan
-      body: _halamanList[_indexTerpilih],
     );
   }
 }

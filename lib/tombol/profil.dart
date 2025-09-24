@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class HalamanProfil extends StatelessWidget {
@@ -6,53 +7,51 @@ class HalamanProfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(flex: 2, child: _BagianAtas(email: email)),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    'MENU GACOAN, $email',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+    return Column(
+      children: [
+        Expanded(flex: 2, child: _BagianAtas(email: email)),
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  'MENU GACOAN, $email',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FloatingActionButton.extended(
+                      onPressed: () {},
+                      heroTag: 'follow',
+                      elevation: 0,
+                      label: const Text("Ikuti"),
+                      icon: const Icon(Icons.person_add_alt_1),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'follow',
-                        elevation: 0,
-                        label: const Text("Ikuti"),
-                        icon: const Icon(Icons.person_add_alt_1),
-                      ),
-                      const SizedBox(width: 16.0),
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'message',
-                        elevation: 0,
-                        backgroundColor: Colors.red,
-                        label: const Text("Pesan"),
-                        icon: const Icon(Icons.message_rounded),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const _BarisInfoProfil(), //
-                ],
-              ),
+                    const SizedBox(width: 16.0),
+                    FloatingActionButton.extended(
+                      onPressed: () {},
+                      heroTag: 'message',
+                      elevation: 0,
+                      backgroundColor: Colors.red,
+                      label: const Text("Pesan"),
+                      icon: const Icon(Icons.message_rounded),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const _BarisInfoProfil(), //
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -62,7 +61,6 @@ class _BarisInfoProfil extends StatelessWidget {
 
   final List<ItemInfoProfil> _items = const [
     ItemInfoProfil("Jumlah Transaksi", 1),
-
   ];
 
   @override
@@ -89,18 +87,18 @@ class _BarisInfoProfil extends StatelessWidget {
   }
 
   Widget _itemTunggal(BuildContext context, ItemInfoProfil item) => Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          item.nilai.toString(),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-      ),
-      Text(item.judul, style: Theme.of(context).textTheme.bodySmall),
-    ],
-  );
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              item.nilai.toString(),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
+          Text(item.judul, style: Theme.of(context).textTheme.bodySmall),
+        ],
+      );
 }
 
 class ItemInfoProfil {
@@ -110,7 +108,8 @@ class ItemInfoProfil {
 }
 
 class _BagianAtas extends StatelessWidget {
-  const _BagianAtas({required String email});
+  final String email;
+  const _BagianAtas({required this.email});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:websitepesan/halaman_riwayat.dart';
+//import 'package:websitepesan/halaman_riwayat.dart';
 import 'package:provider/provider.dart';
 import 'package:websitepesan/providers/theme_provider.dart';
 
@@ -13,7 +14,6 @@ class HalamanPengaturan extends StatefulWidget {
 }
 
 class _HalamanPengaturanState extends State<HalamanPengaturan> {
-
   void _logout() {
     showDialog(
       context: context,
@@ -43,86 +43,74 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Pengaturan - ${widget.email}')),
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: ListView(
-            children: [
-              _SingleSection(
-                title: "Umum",
-                children: [
-                  _CustomListTile(
-                    title: "Mode Gelap",
-                    icon: Icons.dark_mode_outlined,
-                    trailing: Switch(
-                      value: themeProvider.isDarkMode,
-                      onChanged: (value) => themeProvider.toggleTheme(value),
-                    ),
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: ListView(
+          children: [
+            _SingleSection(
+              title: "Umum",
+              children: [
+                _CustomListTile(
+                  title: "Mode Gelap",
+                  icon: Icons.dark_mode_outlined,
+                  trailing: Switch(
+                    value: themeProvider.isDarkMode,
+                    onChanged: (value) => themeProvider.toggleTheme(value),
                   ),
-                  const _CustomListTile(
-                    title: "Notifikasi",
-                    icon: Icons.notifications_none_rounded,
-                  ),
-                  const _CustomListTile(
-                    title: "Status Keamanan",
-                    icon: CupertinoIcons.lock_shield,
-                  ),
-                ],
-              ),
-              const Divider(),
-              _SingleSection(
-                title: "Organisasi",
-                children: [
-                  const _CustomListTile(
-                    title: "Profil",
-                    icon: Icons.person_outline_rounded,
-                  ),
-                  const _CustomListTile(
-                    title: "Keranjang",
-                    icon: Icons.shopping_cart_checkout_outlined,
-                  ),
-                  _CustomListTile(
-                    title: "Riwayat Transaksi",
-                    icon: Icons.history_edu_outlined,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HalamanRiwayat(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const Divider(),
-              _SingleSection(
-                children: [
-                  /*const _CustomListTile(
-                    title: "Bantuan & Masukan",
-                    icon: Icons.help_outline_rounded,
-                  ),*/
-                  const _CustomListTile(
-                    title: "Tentang",
-                    icon: Icons.info_outline_rounded,
-                    onTap: null,
-                  ),
-                  _CustomListTile(
-                    title: "Keluar",
-                    icon: Icons.exit_to_app_rounded,
-                    onTap: _logout,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const _CustomListTile(
+                  title: "Notifikasi",
+                  icon: Icons.notifications_none_rounded,
+                ),
+                const _CustomListTile(
+                  title: "Status Keamanan",
+                  icon: CupertinoIcons.lock_shield,
+                ),
+              ],
+            ),
+            const Divider(),
+            _SingleSection(
+              title: "Organisasi",
+              children: [
+                const _CustomListTile(
+                  title: "Profil",
+                  icon: Icons.person_outline_rounded,
+                ),
+                const _CustomListTile(
+                  title: "Keranjang",
+                  icon: Icons.shopping_cart_checkout_outlined,
+                ),
+                _CustomListTile(
+                  title: "Riwayat Transaksi",
+                  icon: Icons.history_edu_outlined,
+                  onTap: () {
+                    // This should navigate within the MainScreen
+                  },
+                ),
+              ],
+            ),
+            const Divider(),
+            _SingleSection(
+              children: [
+                const _CustomListTile(
+                  title: "Tentang",
+                  icon: Icons.info_outline_rounded,
+                  onTap: null,
+                ),
+                _CustomListTile(
+                  title: "Keluar",
+                  icon: Icons.exit_to_app_rounded,
+                  onTap: _logout,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
-} // Tambahkan ini yang kurang
+}
 
 class _CustomListTile extends StatelessWidget {
   final String title;

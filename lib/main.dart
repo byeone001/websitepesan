@@ -1,10 +1,10 @@
-import 'package:websitepesan/halaman_beranda.dart';
 import 'package:websitepesan/halaman_login.dart';
 import 'package:websitepesan/halaman_password.dart';
 import 'package:websitepesan/halaman_registrasi.dart';
 import 'package:flutter/material.dart';
 import 'package:websitepesan/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:websitepesan/mainscreen.dart';
 import 'package:websitepesan/providers/theme_provider.dart';
 import 'package:websitepesan/providers/transaction_provider.dart';
 
@@ -39,16 +39,17 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             brightness: Brightness.dark,
           ),
-          //home: const Loading(),
-          //home: const LoadingNew(),
-          //home: const Beranda(),
           initialRoute: "/splash",
           routes: {
             "/splash": (context) => const Loading(),
             "/login": (context) => const HalamanLogin(),
             "/register": (context) => const HalamanRegistrasi(),
             "/forgot": (context) => const HalamanLupaPassword(),
-            "/home": (context) => const HalamanBeranda(email: ''),
+            "/main": (context) {
+              final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+              final email = args?['email'] ?? '';
+              return MainScreen(email: email);
+            }
           },
         );
       },
@@ -100,8 +101,6 @@ Offset _getBeginOffset(AxisDirection direction) {
 class AuthScaffold extends StatelessWidget {
   final String title;
   final Widget fields;
-  //final String mainButtonText;
-  //final VoidCallback onMainButtonPressed;
   final String bottomText;
   final String bottomButtonText;
   final VoidCallback onBottomButtonPressed;
@@ -110,8 +109,6 @@ class AuthScaffold extends StatelessWidget {
     super.key,
     required this.title,
     required this.fields,
-    //required this.mainButtonText,
-    //required this.onMainButtonPressed,
     required this.bottomText,
     required this.bottomButtonText,
     required this.onBottomButtonPressed,
@@ -122,11 +119,8 @@ class AuthScaffold extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          // Background image
           image: DecorationImage(
-            image: AssetImage(
-              'assets/buri.jpeg',
-            ), // Replace with your background image
+            image: AssetImage('assets/buri.jpeg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -186,19 +180,6 @@ class AuthScaffold extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               fields,
-              const SizedBox(height: 20),
-              /*SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  ),
-                  //onPressed: onMainButtonPressed,
-                  //child: Text(mainButtonText),
-                ),
-              ),*/
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
