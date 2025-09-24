@@ -35,6 +35,14 @@ class LoadingNew extends StatelessWidget {
             bgColor: Colors.purple,
           ),
         ],
+        onFinish: () {
+          // Tambahkan navigasi ke halaman login di sini
+          Navigator.pushReplacementNamed(context, '/login');
+        },
+        onSkip: () {
+          // Tambahkan navigasi ke halaman login di sini
+          Navigator.pushReplacementNamed(context, '/login');
+        },
       ),
     );
   }
@@ -184,7 +192,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                       ),
                       onPressed: () {
                         if (_currentPage == widget.pages.length - 1) {
-                          widget.onFinish?.call();
+                          widget.onFinish?.call(); // Call the finish callback
+                          
                         } else {
                           _pageController.animateToPage(
                             _currentPage + 1,
@@ -201,6 +210,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                 : "Next",
                           ),
                           const SizedBox(width: 8),
+                          
                           Icon(
                             _currentPage == widget.pages.length - 1
                                 ? Icons.done

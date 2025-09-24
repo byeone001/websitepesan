@@ -1,65 +1,40 @@
 
 
 class Produk {
-  final String id;
-  final String nama;
-  final String deskripsi;
-  final double harga;
-  final String gambar;
-  final double rating;
+  // Properti privat (diawali dengan _)
+  final String _id;
+  final String _nama;
+  final String _deskripsi;
+  final double _harga;
+  final String _gambar;
+  final double _rating;
 
+  // Konstruktor tetap sama, namun menginisialisasi properti privat
   Produk({
-    required this.id,
-    required this.nama,
-    required this.deskripsi,
-    required this.harga,
-    required this.gambar,
-    required this.rating,
-  });
+    required String id,
+    required String nama,
+    required String deskripsi,
+    required double harga,
+    required String gambar,
+    required double rating,
+  })  : _id = id,
+        _nama = nama,
+        _deskripsi = deskripsi,
+        _harga = harga,
+        _gambar = gambar,
+        _rating = rating;
+
+  // Getter publik untuk mengakses properti privat (Enkapsulasi)
+  String get id => _id;
+  String get nama => _nama;
+  String get deskripsi => _deskripsi;
+  double get harga => _harga;
+  String get gambar => _gambar;
+  double get rating => _rating;
 
   // Method untuk menampilkan info produk (akan di-override oleh subclass)
   String tampilkanInfo() {
+    // Menggunakan getter atau properti privat secara langsung
     return "$nama - Rp${harga.toStringAsFixed(0)}";
   }
 }
-
-
-
-/*class Produk {
-  String _nama;
-  String _kategori;
-  double _harga;
-  String _gambar;
-
-  Produk({
-    required String nama,
-    required String kategori,
-    required double harga,
-    required String gambar,
-  })  : _nama = nama,
-        _kategori = kategori,
-        _harga = harga,
-        _gambar = gambar;
-
-  // Getter & Setter → contoh enkapsulasi
-  String get nama => _nama;
-  set nama(String value) => _nama = value;
-
-  String get kategori => _kategori;
-  set kategori(String value) => _kategori = value;
-
-  double get harga => _harga;
-  set harga(double value) {
-    if (value > 0) {
-      _harga = value;
-    }
-  }
-
-  String get gambar => _gambar;
-  set gambar(String value) => _gambar = value;
-
-  // Method default (akan dioverride child class → polymorphism)
-  String deskripsi() {
-    return "Produk umum: $_nama, kategori $_kategori, harga Rp $_harga";
-  }
-}*/

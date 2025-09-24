@@ -1,7 +1,7 @@
 import 'package:websitepesan/halaman_password.dart';
 import 'package:websitepesan/halaman_registrasi.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'package:websitepesan/main.dart';
 
 class HalamanLogin extends StatefulWidget {
   const HalamanLogin({super.key});
@@ -15,15 +15,17 @@ class _HalamanLoginState extends State<HalamanLogin> {
   final passwordController = TextEditingController();
   bool isPasswordVisible = false;
   String errorMessage = "";
-  
+
   void _login() {
-  
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
     if (fakeDatabase.containsKey(email) && fakeDatabase[email] == password) {
-      Navigator.pushReplacementNamed(context, "/home",
-          arguments: {"email": email});
+      Navigator.pushReplacementNamed(
+        context,
+        "/home",
+        arguments: {"email": email},
+      );
     } else {
       setState(() {
         errorMessage = "Email atau password salah!";
@@ -39,7 +41,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
         children: [
           // Email
           TextField(
-            controller: emailController, 
+            controller: emailController,
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.email),
               hintText: "Masukkan Email",
@@ -73,21 +75,22 @@ class _HalamanLoginState extends State<HalamanLogin> {
               ),
             ),
           ),
-          
+
           if (errorMessage.isNotEmpty) ...[
-                  const SizedBox(height: 10),
-                  Text(errorMessage,
-                      style: const TextStyle(color: Colors.red)),
-                ],
+            const SizedBox(height: 10),
+            Text(errorMessage, style: const TextStyle(color: Colors.red)),
+          ],
           const SizedBox(height: 20),
           SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                  style : ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  ),
+            width: double.infinity,
+            height: 45,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onPressed: _login,
               child: const Text("LOGIN"),
             ),
@@ -107,7 +110,10 @@ class _HalamanLoginState extends State<HalamanLogin> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    animatedRoute(const HalamanLupaPassword(), direction: AxisDirection.left),
+                    animatedRoute(
+                      const HalamanLupaPassword(),
+                      direction: AxisDirection.left,
+                    ),
                   );
                 },
                 child: const Text("Lupa Password?"),
@@ -116,7 +122,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
           ),
         ],
       ),
-      
+
       bottomText: "Belum Punya Akun?",
       bottomButtonText: "Buat Akun",
       onBottomButtonPressed: () {
@@ -124,7 +130,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
           context,
           animatedRoute(const HalamanRegistrasi(), direction: AxisDirection.up),
         );
-      }, 
+      },
     );
   }
 }

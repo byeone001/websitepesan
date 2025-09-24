@@ -13,7 +13,9 @@ class ItemKeranjang {
 }
 
 class Keranjang {
-  final List<ItemKeranjang> _items = [];
+  final List<ItemKeranjang> _items;
+
+  Keranjang({List<ItemKeranjang>? initialItems}) : _items = initialItems ?? [];
 
   List<ItemKeranjang> get items => List.unmodifiable(_items);
 
@@ -52,4 +54,6 @@ class Keranjang {
   void kosongkan() {
     _items.clear();
   }
+
+  void hitungTotalHarga() {}
 }

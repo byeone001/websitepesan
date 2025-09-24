@@ -2,12 +2,22 @@ import 'package:websitepesan/halaman_beranda.dart';
 import 'package:websitepesan/halaman_login.dart';
 import 'package:websitepesan/halaman_password.dart';
 import 'package:websitepesan/halaman_registrasi.dart';
-import 'package:websitepesan/loading.dart';
 import 'package:flutter/material.dart';
-//import 'package:websitepesan/loadingnew.dart';
+import 'package:websitepesan/loading.dart';
+import 'package:provider/provider.dart';
+import 'package:websitepesan/providers/theme_provider.dart';
+import 'package:websitepesan/providers/transaction_provider.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => TransactionProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,19 +25,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Warung Kita',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Loading(),
-      //home: const LoadingNew(),
-      //home: const Beranda(),
-      initialRoute: "/login",
-      routes: {
-        "/login": (context) => const HalamanLogin(),
-        "/register": (context) => const HalamanRegistrasi(),
-        "/forgot": (context) => const HalamanLupaPassword(),
-        "/home": (context) => const HalamanBeranda(email: '',),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Warung Kita',
+          themeMode: themeProvider.themeMode,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.dark,
+          ),
+          //home: const Loading(),
+          //home: const LoadingNew(),
+          //home: const Beranda(),
+          initialRoute: "/splash",
+          routes: {
+            "/splash": (context) => const Loading(),
+            "/login": (context) => const HalamanLogin(),
+            "/register": (context) => const HalamanRegistrasi(),
+            "/forgot": (context) => const HalamanLupaPassword(),
+            "/home": (context) => const HalamanBeranda(email: ''),
+          },
+        );
       },
     );
   }
@@ -39,7 +62,10 @@ Map<String, String> fakeDatabase = {};
 // ======================================================
 // ANIMATED ROUTE (CUSTOM SLIDE TRANSITION)
 // ======================================================
-Route animatedRoute(Widget page, {AxisDirection direction = AxisDirection.right}) {
+Route animatedRoute(
+  Widget page, {
+  AxisDirection direction = AxisDirection.right,
+}) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -49,10 +75,7 @@ Route animatedRoute(Widget page, {AxisDirection direction = AxisDirection.right}
         end: Offset.zero,
       ).chain(CurveTween(curve: curve));
 
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
+      return SlideTransition(position: animation.drive(tween), child: child);
     },
     transitionDuration: const Duration(milliseconds: 500),
   );
@@ -98,9 +121,12 @@ class AuthScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration( // Background image
+        decoration: const BoxDecoration(
+          // Background image
           image: DecorationImage(
-            image: AssetImage('assets/buri.jpeg'), // Replace with your background image
+            image: AssetImage(
+              'assets/buri.jpeg',
+            ), // Replace with your background image
             fit: BoxFit.cover,
           ),
         ),
@@ -116,14 +142,11 @@ class AuthScaffold extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.9),
                   boxShadow: isWide
-                      ? [
-                          const BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 10,
-                          ),
-                        ]
+                      ? [const BoxShadow(color: Colors.black12, blurRadius: 10)]
                       : null,
-                  borderRadius: isWide ? BorderRadius.circular(15) : BorderRadius.zero,
+                  borderRadius: isWide
+                      ? BorderRadius.circular(15)
+                      : BorderRadius.zero,
                 ),
                 child: isWide
                     ? Row(
@@ -156,7 +179,10 @@ class AuthScaffold extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 30),
               fields,
@@ -209,16 +235,16 @@ class AuthScaffold extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/unesa logo.png',
-                height: 80,
-                width: 80,
-              ),
+              Image.asset('assets/unesa logo.png', height: 80, width: 80),
               const SizedBox(height: 20),
               const Text(
                 "WELCOME!\nStart your journey with us",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -227,4 +253,3 @@ class AuthScaffold extends StatelessWidget {
     );
   }
 }
-

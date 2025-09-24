@@ -1,0 +1,12 @@
+{
+    "geminicodeassist.agentDebugMode": true,
+    "geminicodeassist.agentYoloMode": true,
+    "geminicodeassist.codeGenerationPaneViewEnabled": true,
+    "geminicodeassist.languages": [
+        "*",
+        "dart"
+    ],
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterUiGuidesCustomTracking": true,
+    "geminicodeassist.rules": "Always generate unit tests when creating a new function"
+}
