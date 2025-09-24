@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:websitepesan/halaman_riwayat.dart';
+import 'package:websitepesan/halaman_riwayat.dart';
 import 'package:provider/provider.dart';
 import 'package:websitepesan/providers/theme_provider.dart';
 
@@ -85,7 +85,13 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                   title: "Riwayat Transaksi",
                   icon: Icons.history_edu_outlined,
                   onTap: () {
-                    // This should navigate within the MainScreen
+                    // Navigator.of(context).pop(); // Consider if this is needed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HalamanRiwayat(email: widget.email),
+                      ),
+                    );
                   },
                 ),
               ],

@@ -199,38 +199,49 @@ class AuthScaffold extends StatelessWidget {
   }
 
   Widget _buildBlueSection() {
-    return Expanded(
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue, Colors.blueAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15),
-            bottomRight: Radius.circular(15),
-          ),
+  return Expanded(
+    child: Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue, Colors.blueAccent],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/unesa logo.png', height: 80, width: 80),
-              const SizedBox(height: 20),
-              const Text(
-                "WELCOME!\nStart your journey with us",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(15),
+          bottomRight: Radius.circular(15),
         ),
       ),
-    );
-  }
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: 3),
+                image: DecorationImage(
+                  image: AssetImage('assets/LOGO.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              "Selamat Datang\nWarung Kita",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 }

@@ -52,20 +52,34 @@ class _LoadingState extends State<Loading>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Gambar/logo
-              Image.asset(
-                'assets/unesa logo.png',
-                width: 150,
-                height: 150,
+              Container(
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 3),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/LOGO.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               const SizedBox(height: 30),
-              // Loading indicator
               const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
               const SizedBox(height: 20),
               const Text(
-                'Nungguin Yaaaaaa...',
+                'WARUNG KITA',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              const Text(
+                'By Qolbun Halim Hidayatulloh\n24111814065',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 16,

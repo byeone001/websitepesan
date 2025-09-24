@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:websitepesan/halaman_beranda.dart';
-import 'package:websitepesan/main.dart';
+import 'package:websitepesan/mainscreen.dart';
 import 'package:websitepesan/model/keranjang.dart';
-
 
 class HalamanBuktiTransaksi extends StatelessWidget {
   final Keranjang keranjang;
@@ -184,13 +182,14 @@ class HalamanBuktiTransaksi extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                    Navigator.push(
-                      context,
-                      animatedRoute(const HalamanBeranda(email: '',), direction: AxisDirection.down),
-                    );
-                      //Navigator.of(context).popUntil((route) => route.isFirst);
-                      //Navigator.of(context) => HalamanBeranda(email: email);
-                      //transitionDuration: Duration.zero,
+                      // ✅ PERBAIKAN: Kembali ke MainScreen, bukan langsung ke Beranda
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MainScreen(email: email),
+                        ),
+                        (route) => false,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
@@ -201,8 +200,8 @@ class HalamanBuktiTransaksi extends StatelessWidget {
                       children: [
                         Icon(Icons.home, size: 20),
                         SizedBox(width: 8),
-                        Text ('Kembali ke Beranda'),
-                        ]
+                        Text('Kembali ke Beranda'),
+                      ],
                     ),
                   ),
                 ),

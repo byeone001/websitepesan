@@ -69,6 +69,17 @@ flutter:
     - assets/mie setan.jpg
     - assets/mie iblis.jpg
     - assets/logo.jpeg
+    - assets/LOGO.png
+    - assets/sate ayam.jpg
+    - assets/rendang.jpeg
+    - assets/nasi goreng.jpg
+    - assets/gado gado.jpg
+    - assets/bakso.jpeg
+    - assets/es teller.jpg
+    - assets/es teh manis.jpeg
+    - assets/es cendol nangka.jpg
+    - assets/es jeruk.jpg
+    - assets/jus alpukat.jpg
   #fonts:
    # - family: Poppin-Regular
     #  fonts:

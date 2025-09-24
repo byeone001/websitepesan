@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:websitepesan/halaman_beranda.dart';
 import 'package:websitepesan/halaman_keranjang.dart';
-//import 'package:websitepesan/halaman_riwayat.dart';
 import 'package:websitepesan/model/keranjang.dart';
 import 'package:websitepesan/tombol/profil.dart';
 import 'package:websitepesan/tombol/pengaturan.dart';
@@ -34,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
       HalamanKeranjang(keranjang: _keranjang, email: widget.email),
       HalamanProfil(email: widget.email),
       HalamanPengaturan(email: widget.email),
+      //HalamanRiwayat(), // Tambahkan halaman riwayat di sini
     ];
   }
 

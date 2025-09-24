@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:websitepesan/providers/transaction_provider.dart';
 
 class HalamanRiwayat extends StatelessWidget {
-  const HalamanRiwayat({super.key});
+  const HalamanRiwayat({super.key, required String email});
 
   @override
   Widget build(BuildContext context) {
