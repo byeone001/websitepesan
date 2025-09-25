@@ -390,7 +390,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                   children: [
                     const Text('Subtotal', style: TextStyle(fontSize: 16)),
                     Text(
-                      'Rp${widget.keranjang.totalHarga.toStringAsFixed(0)}',
+                      'Rp${widget.keranjang.hargaDiskon?.toStringAsFixed(0)}',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -399,9 +399,9 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Ongkos Kirim', style: TextStyle(fontSize: 16)),
+                    const Text('Diskon', style: TextStyle(fontSize: 16)),
                     Text(
-                      widget.keranjang.totalHarga >= 50000 ? 'DISKON' : 'Rp10.000',
+                      widget.keranjang.totalHarga >= 50000 ? 'Diskon' : 'Rp10.000',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -419,7 +419,7 @@ class _HalamanKeranjangState extends State<HalamanKeranjang> {
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Rp${(widget.keranjang.totalHarga >= 50000 ? widget.keranjang.totalHarga : widget.keranjang.totalHarga + 10000).toStringAsFixed(0)}',
+                      'Rp${(widget.keranjang.hargaDiskon! > 50000 ? widget.keranjang.hargaDiskon : widget.keranjang.hargaDiskon)?.toStringAsFixed(0)}',
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

@@ -57,7 +57,7 @@ class _BarisInfoProfil extends StatelessWidget {
     return Consumer<TransactionProvider>(
       builder: (context, transactionProvider, child) {
         final transactionCount = transactionProvider.transactionsForUser(email).length;
-        final List<ItemInfoProfil> _items = [
+        final List<ItemInfoProfil> items = [
           ItemInfoProfil("Jumlah Transaksi", transactionCount),
         ];
 
@@ -66,12 +66,12 @@ class _BarisInfoProfil extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 400),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _items
+            children: items
                 .map(
                   (item) => Expanded(
                     child: Row(
                       children: [
-                        if (_items.indexOf(item) != 0) const VerticalDivider(),
+                        if (items.indexOf(item) != 0) const VerticalDivider(),
                         Expanded(child: _itemTunggal(context, item)),
                       ],
                     ),

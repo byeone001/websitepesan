@@ -141,8 +141,6 @@ class HalamanBuktiTransaksi extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     _buildSummaryRow('Subtotal', keranjang.totalHarga),
-                    _buildSummaryRow('Ongkos Kirim', 
-                      keranjang.totalHarga >= 50000 ? 0 : 10000),
                     const Divider(height: 24),
                     _buildSummaryRow(
                       'Total Pembayaran', 

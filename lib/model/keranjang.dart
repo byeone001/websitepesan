@@ -10,6 +10,12 @@ class ItemKeranjang {
   });
 
   double get totalHarga => produk.harga * jumlah;
+  double get hargaDiskon {
+    if (totalHarga > 50000) {
+      return totalHarga - 10000;
+    }
+    return totalHarga;
+  }
 }
 
 class Keranjang {
@@ -51,9 +57,9 @@ class Keranjang {
     return _items.fold(0, (total, item) => total + item.jumlah);
   }
 
+  double? get hargaDiskon => _items.fold(0, (total, item) => total! + item.hargaDiskon);
+
   void kosongkan() {
     _items.clear();
   }
-
-  void hitungTotalHarga() {}
 }

@@ -222,7 +222,7 @@ class AuthScaffold extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 3),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage('assets/LOGO.png'),
                   fit: BoxFit.cover,
                 ),
